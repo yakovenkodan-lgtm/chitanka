@@ -1,0 +1,35 @@
+# Створює двійкові файли сайту: іконки й банер (малюють .github/make_icons.py і make_banner.py) і тишу (з _bin/*.b64).
+# Потрібно, бо файли в репозиторій завантажуються як текст. Жодних секретів, жодного вмісту книжок.
+name: build-assets
+on:
+  push:
+    paths: ['_bin/**', '.github/*.py', '.github/workflows/build-assets.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Icons and banner
+        run: |
+          pip install --quiet pillow
+          python .github/make_icons.py
+          python .github/make_banner.py
+      - name: Decode _bin/*.b64 (name = path with ~ instead of /)
+        run: |
+          for f in _bin/*.b64; do
+            rel=$(basename "$f" .b64 | tr '~' '/')
+            mkdir -p "$(dirname "$rel")"
+            base64 -d "$f" > "$rel"
+          done
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898333+github-actions[bot]@users.noreply.github.com"
+          git add -A icons img audio
+          git diff --cached --quiet || { git commit -m "Іконки, банер і аудіо для сайту"; git push; }
