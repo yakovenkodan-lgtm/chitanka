@@ -187,7 +187,7 @@
       pause: function () { self.a.pause(); },
       stop: function () { self.stop(); },
       seekbackward: function (d) { self.seekBy(-((d && d.seekOffset) || 15)); },
-      seekforward: function (d) { self.seekBy((d && d.seekOffset) || 15); },
+      seekforward: function (d) { self.seekBy((d && d.seekOffset) || 30); },
       seekto: function (d) { if (d && typeof d.seekTime === 'number') self.seekTo(d.seekTime); },
       previoustrack: function () { self.prev(); },
       nexttrack: function () { self.next(); }

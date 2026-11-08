@@ -270,7 +270,7 @@
   }
   $('plPlay').addEventListener('click', () => player.toggle());
   $('plBack').addEventListener('click', () => player.seekBy(-15));
-  $('plFwd').addEventListener('click', () => player.seekBy(15));
+  $('plFwd').addEventListener('click', () => player.seekBy(30));
   $('plStop').addEventListener('click', () => { player.stop(); renderAudioList(); });
   $('plSeek').addEventListener('input', (e) => { $('plCur').textContent = fmt(+e.target.value); });
   $('plSeek').addEventListener('change', (e) => player.seekTo(+e.target.value));
