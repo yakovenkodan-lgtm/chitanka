@@ -2,7 +2,7 @@
 window.CHITANKA_CONFIG = {
   "mode": "drive",
   "googleClientId": "",
-  "loginHint": "",
+  "loginHint": "yakovenko.dan@gmail.com",
   "driveFolder": "Читанка",
   "demoBase": ""
 };
